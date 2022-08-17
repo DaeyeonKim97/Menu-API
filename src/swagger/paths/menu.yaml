@@ -1,8 +1,42 @@
+# /menu/list:
+#   get:
+#     summary: 모든 메뉴 목록 조회
+#     tags: [메뉴]
+#     responses:
+#       "200":
+#         description: 모든 메뉴 목록
+#         content:
+#           application/json:
+#             schema:
+#               type: object
+#               properties:
+#                 menuCode:
+#                   type: integer
+#                   example: 100
+#                 menuName:
+#                   type: string
+#                   example: 테스트메뉴
+#                 menuPrice:
+#                   type: integer
+#                   example: 10000
+#                 categoryCode:
+#                   type: integer
+#                   example: 8
+#                 orderableStatus:
+#                   type: string
+#                   example: Y
+
 /menu/list:
   get:
     summary: 모든 메뉴 목록 조회
     tags: [메뉴]
-    response:
+    parameters:
+      - name : offset
+        required : false
+        description : 건너뛸 매뉴 갯수
+        schema:
+          type: string
+    responses:
       "200":
         description: 모든 메뉴 목록
         content:
@@ -10,15 +44,30 @@
             schema:
               type: object
               properties:
-                menuCode:
+                status:
                   type: integer
-                  example: 100
-                menuName:
+                  example: 200
+                message:
                   type: string
-                  example: 테스트메뉴
-                menuPrice:
-                  type: integer
-                  example: 10000
+                  example: OK
+                results:
+                  type: object
+                  properties:
+                    menuCode:
+                      type: integer
+                      example: 100
+                    menuName:
+                      type: string
+                      example: 테스트메뉴
+                    menuPrice:
+                      type: integer
+                      example: 10000
+                    categoryCode:
+                      type: integer
+                      example: 8
+                    orderableStatus:
+                      type: string
+                      example: Y
 
 /menu:
   post:
@@ -37,7 +86,7 @@
     responses:
       "200":
         description: 모든 메뉴 목록
-        content:s
+        content:
           application/json:
             schema:
               type: string
@@ -52,12 +101,13 @@
             schema:
               type: string
 
-/menu/:menuCode:
+/menu/{menuCode}:
   get:
     summary: 메뉴 한개 조회
     tags: [메뉴]
-    parameters:
-      - name: menuCode
+    parameters: 
+      - in: path
+        name: menuCode
         required: true
         description: 조회할 메뉴 코드
         schema:
@@ -65,18 +115,33 @@
           sample: 1
     responses:
       "200":
-        description: 조회한 메뉴
+        description: 모든 메뉴 목록
         content:
           application/json:
             schema:
               type: object
               properties:
-                menuCode:
+                status:
                   type: integer
-                  example: 100
-                menuName:
+                  example: 200
+                message:
                   type: string
-                  example: 테스트메뉴
-                menuPrice:
-                  type: integer
-                  example: 10000
+                  example: OK
+                results:
+                  type: object
+                  properties:
+                    menuCode:
+                      type: integer
+                      example: 100
+                    menuName:
+                      type: string
+                      example: 테스트메뉴
+                    menuPrice:
+                      type: integer
+                      example: 10000
+                    categoryCode:
+                      type: integer
+                      example: 8
+                    orderableStatus:
+                      type: string
+                      example: Y

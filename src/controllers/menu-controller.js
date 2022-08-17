@@ -13,7 +13,8 @@ exports.findAllMenus = async (req,res,next)=>{
 }
 
 exports.findMenuByMenuCode = async (req,res,next) => {
-    const menu = MenuService.findMenuByMenuCode(req.params.menuCode);
+    const menu = await menuService.findMenuByMenuCode(req.params.menuCode);
+    console.log(menu)
 
     if(menu && menu.length>0)
         res.status(HttpStatus.OK).send({
@@ -39,7 +40,7 @@ exports.findMenuByMenuCode = async (req,res,next) => {
 }
 
 exports.registNewMenu = async (req, res, next) =>{
-    const result = MenuService.registNewMenu(new MenuDTO(req.body));
+    const result = await menuService.registNewMenu(new MenuDTO(req.body));
 
     if(result){
         res.status(HttpStatus.CREATED).send({
