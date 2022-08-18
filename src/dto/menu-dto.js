@@ -2,18 +2,17 @@ class MenuDTO{
     menuCode;
     menuName;
     menuPrice;
-    categoryName;
+    categoryCode;
     isOrderable;
-    detail = {};
+    description;
 
     constructor(data){
         this.menuCode = data.menuCode;
         this.menuName = data.menuName;
         this.menuPrice = data.menuPrice;
-        this.categoryName = data.categoryName;
-        this.isOrderable = data.isOrderable;
-        this.detail.description = data.description;
-        this.detail.image = data.image;
+        this.categoryCode = data.categoryCode;
+        this.orderableStatus = data.orderableStatus;
+        this.description = data.description;
     }
 }
 

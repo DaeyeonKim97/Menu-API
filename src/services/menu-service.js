@@ -40,13 +40,11 @@ exports.registNewMenu = (menu)=>{
         try{
             
             const result = await menuRepository.insertNewMenu(connection, menu);
-            console.log('insert result', result);
 
             connection.commit();
             console.log('commit successfully');
 
             const insertedMenu = await menuRepository.selectMenuByMenuCode(connection, result.insertId);
-            console.table(insertedMenu);
 
             resolve(insertedMenu)
 
@@ -57,7 +55,6 @@ exports.registNewMenu = (menu)=>{
             reject(err);
         } finally{
             connection.end();
-            console.log('connection closed successfully');
         }
 
     })

@@ -1,6 +1,6 @@
 const HttpStatus = require('http-status');
 const menuService = require('../services/menu-service');
-const MenuDTO = '';
+const MenuDTO = require('../dto/menu-dto');
 
 exports.findAllMenus = async (req,res,next)=>{
     const results = await menuService.findAllMenus();
@@ -47,10 +47,10 @@ exports.registNewMenu = async (req, res, next) =>{
             status: HttpStatus.CREATED, //201
             message: 'new menu created successfully',
             createdContent: {
-                menuCode: 22,
-                menuName : result.menuName
+                menuCode: result[0].MENU_CODE,
+                menuName : result[0].MENU_NAME
             },
-            contentLocation: '/menus/22'
+            contentLocation: '/menu/'+result[0].MENU_CODE,
         })
     }
     else{

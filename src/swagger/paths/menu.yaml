@@ -37,20 +37,87 @@
                         type: string
                         example: Y
 
+
 /menu:
   post:
     summary: 신규 메뉴 추가
     tags: [메뉴]
+    requestBody: 
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: 
+              menuName:
+                type: string
+                example: 테스트메뉴
+              menuPrice:
+                type: int
+                example: 10000
+              categoryCode:
+                type: int
+                example: 7
+              orderableStatus:
+                type: string
+                example: Y
+              description:
+                type: object
+                example: 이것은 테스트 메뉴입니다.
     responses:
-      "200":
-        description: 추가된 메뉴 이름
+      "201":
+        description: 추가된 메뉴
         content:
           application/json:
             schema:
-              type: string
+              type: object
+              properties:
+                status:
+                  type: int
+                  example: 201
+                message:
+                  type: string
+                  example: new menu created successfully
+                createdContent:
+                  type: object
+                  properties:
+                    menuCode:
+                      type: int
+                      example: 99
+                    menuName:
+                      type: string
+                      example: 테스트메뉴
+                contentLocation:
+                  type: string
+                  example: /menu/99
   put:
     summary: 메뉴 정보 수정
     tags: [메뉴]
+    requestBody: 
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: 
+              menuCode:
+                type: int
+                example: 50
+              menuName:
+                type: string
+                example: 수정된 테스트 메뉴
+              menuPrice:
+                type: int
+                example: 33333
+              categoryCode:
+                type: int
+                example: 7
+              orderableStatus:
+                type: string
+                example: Y
+              description:
+                type: object
+                example: 이것은 테스트 메뉴의 수정된 내용입니다.
     responses:
       "200":
         description: 모든 메뉴 목록
@@ -83,7 +150,7 @@
           sample: 1
     responses:
       "200":
-        description: 모든 메뉴 목록
+        description: 조회된 메뉴
         content:
           application/json:
             schema:
