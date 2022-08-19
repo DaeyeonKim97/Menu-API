@@ -68,3 +68,33 @@ exports.registNewMenu = async (req, res, next) =>{
         })
     }
 }
+
+exports.updateMenu = async (req, res, next) =>{
+    const result = await menuService.updateMenu(new MenuDTO(req.body));
+
+    if(result){
+        res.status(HttpStatus.OK).send({
+            status: HttpStatus.OK, //200
+            message: 'menu updated successfully',
+            createdContent: {
+                menuCode: result[0].MENU_CODE,
+                menuName : result[0].MENU_NAME
+            },
+            contentLocation: '/menu/'+result[0].MENU_CODE,
+        })
+    }
+    else{
+        res.status(HttpStatus.CONFLICT).send({
+            status: HttpStatus.CONFLICT, //409
+            message : 'data confilct error',
+            code : -888888,
+            links: [
+                {
+                    rel: 'menu.update',
+                    method: 'POST',
+                    href: 'https://api.dykim.com/v1/menu/update'
+                }
+            ]
+        })
+    }
+}

@@ -59,3 +59,32 @@ exports.registNewMenu = (menu)=>{
 
     })
 }
+
+exports.updateMenu = (menu)=>{
+    return new Promise( async (resolve, reject)=>{
+        const connection = getConnection();
+
+        connection.beginTransaction();
+
+        try{
+            
+            const result = await menuRepository.updateMenu(connection, menu);
+
+            connection.commit();
+            console.log('commit successfully');
+            
+            const updatedMenu = await menuRepository.selectMenuByMenuCode(connection, menu.menuCode);
+
+            resolve(updatedMenu)
+
+        }catch(err){
+            connection.rollback();
+            console.log(`rollback successfully`);
+
+            reject(err);
+        } finally{
+            connection.end();
+        }
+
+    })
+}

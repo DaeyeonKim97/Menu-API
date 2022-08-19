@@ -23,9 +23,6 @@ exports.selectMenuByMenuCode = (connection, menuCode) =>{
             if(err){
                 reject(err);
             }
-
-            console.log(menuCode);
-            console.log(results);
             
             resolve(results);
 
@@ -38,6 +35,21 @@ exports.insertNewMenu = (connection,menu) => {
         connection.query(
             menuQuery.insertNewMenu(),
             [menu.menuName, menu.menuPrice, menu.categoryCode, menu.orderableStatus],
+            (err, results, fields)=>{
+                if(err){
+                    reject(err);
+                }
+
+                resolve(results);
+            }
+        )
+    });
+}
+
+exports.updateMenu = (connection,menu) => {
+    return new Promise((resolve, reject)=>{
+        connection.query(
+            menuQuery.updateMenu(menu.menuCode, menu.menuName, menu.menuPrice, menu.categoryCode, menu.orderableStatus),
             (err, results, fields)=>{
                 if(err){
                     reject(err);

@@ -120,14 +120,43 @@
                 example: 이것은 테스트 메뉴의 수정된 내용입니다.
     responses:
       "200":
-        description: 모든 메뉴 목록
+        description: 조회된 메뉴
         content:
           application/json:
             schema:
-              type: string
+              type: object
+              properties:
+                status:
+                  type: integer
+                  example: 200
+                message:
+                  type: string
+                  example: OK
+                results:
+                  type: object
+                  properties:
+                    menuCode:
+                      type: integer
+                      example: 50
+                    menuName:
+                      type: string
+                      example: 수정된 테스트 메뉴
+                contentLocation:
+                  type: string
+                  example: /menu/50
   delete:
     summary: 메뉴 정보 삭제
     tags: [메뉴]
+    requestBody: 
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties: 
+              menuCode:
+                type: int
+                example: 50
     responses:
       "200":
         description: 모든 메뉴 목록
