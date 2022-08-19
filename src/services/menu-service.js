@@ -88,3 +88,27 @@ exports.updateMenu = (menu)=>{
 
     })
 }
+
+exports.deleteMenu = (menuCode) => {
+    return new Promise( async(resolve,reject)=>{
+        const connection = getConnection();
+        connection.beginTransaction();
+
+        try{
+            const result = await menuRepository.deleteMenu(connection,menuCode);
+            connection.commit();
+            console.log('commit successfully');
+
+            console.log(result);
+
+            resolve(result);
+        }catch(err){
+            connection.rollback();
+            console.log('rollback successfully');
+            reject(err);
+        } finally{
+            connection.end();
+        }
+
+    })
+}

@@ -63,14 +63,8 @@ exports.updateMenu = (menuCode, menuName, menuPrice, categoryCode, orderableStat
 
 exports.deleteMenu = () =>{
     return`
-        INSERT
-            INTO TBL_MENU
-        (
-            MENU_NAME, MENU_PRICE, CATEGORY_CODE, ORDERABLE_STATUS
-        )
-        VALUES
-        (
-            ? , ? , ?, ?
-        )
+        DELETE
+            FROM TBL_MENU
+        WHERE MENU_CODE = ?
     `
 }

@@ -120,7 +120,7 @@
                 example: 이것은 테스트 메뉴의 수정된 내용입니다.
     responses:
       "200":
-        description: 조회된 메뉴
+        description: 수정된 메뉴
         content:
           application/json:
             schema:
@@ -157,13 +157,6 @@
               menuCode:
                 type: int
                 example: 50
-    responses:
-      "200":
-        description: 모든 메뉴 목록
-        content:
-          application/json:
-            schema:
-              type: string
 
 /menu/{menuCode}:
   get:

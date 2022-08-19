@@ -14,7 +14,6 @@ exports.findAllMenus = async (req,res,next)=>{
 
 exports.findMenuByMenuCode = async (req,res,next) => {
     const menu = await menuService.findMenuByMenuCode(req.params.menuCode);
-    console.log(menu)
 
     if(menu && menu.length>0)
         res.status(HttpStatus.OK).send({
@@ -93,6 +92,32 @@ exports.updateMenu = async (req, res, next) =>{
                     rel: 'menu.update',
                     method: 'POST',
                     href: 'https://api.dykim.com/v1/menu/update'
+                }
+            ]
+        })
+    }
+}
+
+exports.deleteMenu = async (req, res, next) =>{
+    const result = await menuService.deleteMenu(req.body.menuCode);
+
+    if(result){
+        res.status(HttpStatus.NO_CONTENT).send({
+            status: HttpStatus.NO_CONTENT, //203
+            message: 'menu deleted successfully',
+            deletedMenuCode: req.body.menuCode,
+        })
+    }
+    else{
+        res.status(HttpStatus.CONFLICT).send({
+            status: HttpStatus.CONFLICT, //409
+            message : 'data confilct error',
+            code : -888888,
+            links: [
+                {
+                    rel: 'menu.delete',
+                    method: 'POST',
+                    href: 'https://api.dykim.com/v1/menu/delete'
                 }
             ]
         })

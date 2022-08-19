@@ -60,3 +60,19 @@ exports.updateMenu = (connection,menu) => {
         )
     });
 }
+
+exports.deleteMenu = (connection,menuCode) => {
+    return new Promise((resolve, reject)=>{
+        connection.query(
+            menuQuery.deleteMenu(),
+            [menuCode],
+            (err, results, fields)=>{
+                if(err){
+                    reject(err);
+                }
+
+                resolve(results);
+            }
+        )
+    });
+}
